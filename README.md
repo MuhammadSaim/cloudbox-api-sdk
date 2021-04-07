@@ -3,53 +3,141 @@
 ## Installation
 
 ```shell
-composer require muhammadsaim/cloudbox-sdk
+composer require muhammadsaim/cloudbox-api-sdk
 ```
 
 ## Get API Key
 
-Go the the CloudBox Developer Portal and create an App and copy your API Key.
+Register or Login at CloudBox Developer Portal, Create an App -> Copy your API Key.
 
-## Albums
+###Namespaces & Required Files
 
 ```php
 require_once "./vendor/autoload.php";
+use MuhammadSaim;
+```
 
-use MuhammadSaim\CloudBox\CloudBox;
+## Albums
++ List All Albums 
 
-$cloudbox = new CloudBox( "API_KEY" );
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
 
 $albums = $cloudbox->albums();
+
+echo "<pre>";
+
+var_dump($albums);
+```
+if you wish to display specific pages of the albums then pass number of page to `albums` method
+
+```php
+
+$albums = $cloudbox->albums(3);
+
 ```
 
 ## Create album
 
-Create new album
++ Create new album
 
 ```php
-require_once "./vendor/autoload.php";
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
 
-use MuhammadSaim\CloudBox\CloudBox;
-require_once "./vendor/autoload.php";
+$createAlbum = $cloudbox->createAlbum('FOLDER_NAME');
 
-use MuhammadSaim\CloudBox\CloudBox;
+echo "<pre>";
 
-$cloudbox = new CloudBox( "API_KEY" );
-
-$album = $cloudbox->createAlbum("My Album");
-$cloudbox = new CloudBox( "API_KEY" );
-
-$album = $cloudbox->createAlbum("My Album");
+var_dump($createAlbum);
 ```
 
-If you wanna create sub album or folder just pass the parent id of the folder or album.
+If you want to create sub-album or folder in the specific album just pass the `parent_id` of the folder or album.
 
 ```php
-require_once "./vendor/autoload.php";
 
-use MuhammadSaim\CloudBox\CloudBox;
+$createAlbum = $cloudbox->createAlbum('SUBFOLDER_NAME', 1);
 
-$cloudbox = new CloudBox( "API_KEY" );
-
-$album = $cloudbox->createAlbum("My Album", 1);
 ```
+
+## Update Album
++ Update Specific Album
+
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
+
+$updateAlbum = $cloudbox->updateAlbum('NEW_NAME', 52);
+
+echo "<pre>";
+
+var_dump($updateAlbum);
+```
+
+## Delete Album
++ Delete Specific Album
+
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
+
+$deleteAlbum = $cloudbox->deleteAlbum(52);
+
+echo "<pre>";
+
+var_dump($deleteAlbum);
+```
+
+## Files
+
++ List all files from album
+
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
+
+$files = $cloudbox->files(2);
+
+echo "<pre>";
+
+var_dump($files);
+```
+
+To paginate files you have to pass second parameter as `page_number` with your `album_id`
+```php
+
+$files = $cloudbox->files(2, 4);
+
+```
+
+## Image Upload
+
++ Upload Image to your album
+
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
+
+$imageUpload = $cloudbox->imageUpload('ABSOLUTE_IMAGE_PATH', '2');
+
+echo "<pre>";
+
+var_dump($imageUpload);
+```
+
+## Video Upload
+
++ Upload Video to your album
+
+```php
+<?php
+$cloudbox = new CloudBox( "TOKEN", 'BASE_URL' );
+
+$videoUpload = $cloudbox->videoUpload('ABSOLUTE_VIDEO_PATH', '2');
+
+echo "<pre>";
+
+var_dump($videoUpload);
+```
+
