@@ -42,7 +42,7 @@ class CloudBox {
      */
     public function __construct( string $token, string $base_url = null ) {
         $this->api_token = $token;
-        $this->base_url = $base_url ?? "http://media-manager.test/api/";
+        $this->base_url = $base_url ?? "https://dev-update.codes/media/api/";
         $this->request_headers = [
             'Accept'        => 'application/json',
             'Authorization' => 'Bearer ' . $this->api_token,
@@ -67,7 +67,7 @@ class CloudBox {
         try {
             ( null === $parent_id ) ? $payload['page'] = $page : $payload = ['page' => $page, 'parent_id' => $parent_id];
             $response = $this->client->request( 'GET', 'albums', [
-                "json" => $payload,
+                "query" => $payload,
             ] );
             if ( $response->getStatusCode() === 200 ) {
                 return json_decode( $response->getBody()->getContents(), true );
@@ -162,8 +162,8 @@ class CloudBox {
      */
     public function files( int $album_id, int $page = 1 ) {
         try {
-            $response = $this->client->request( 'GET', 'files', [
-                "json" => [
+            $response = $this->client->request( 'GET', "files", [
+                "query" => [
                     'album_id' => $album_id,
                     'page'     => $page,
                 ],
