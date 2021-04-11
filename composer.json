@@ -3,10 +3,9 @@
   "description": "Provide an Object-oriented API to CloudBox API.",
   "type": "library",
   "license": "MIT",
-  "version": "0.1.1",
   "minimum-stability": "dev",
   "require": {
-    "php": "^7.4",
+    "php": ">=7.4",
     "ext-json": "*",
     "guzzlehttp/guzzle": "^7.3"
   },
